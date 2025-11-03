@@ -1,5 +1,5 @@
-export const siteUrl = "https://mizar.majestico.co";
-export const siteTitle = "Mizar";
+export const siteUrl = "https://kamu-kids.com";
+export const siteTitle = "Kamu Kids Lahti";
 export const defaultLocale = "en";
-export const locales = ["en", "it"];
-export type Locale = "en" | "it";
+export const locales = ["fi", "en",];
+export type Locale = "fi" | "en";
