@@ -1,0 +1,31 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import type { ButtonProps } from "@/components/primitives/Button.astro";
+import Link from "@/components/primitives/Link.astro";
+import AvainsanatPreview from "@/components/sections/AvainsanatPreview.astro";
+
+const currentLocale = Astro.currentLocale;
+
+const avainsanat = await getCollection("avainsanat");
+
+const allAvainsanat = avainsanat
+	.map((avainsanat) => {
+		const [lang, ...slug] = avainsanat.slug.split("/");
+		return {
+			...avainsanat,
+			lang: lang,
+			slug: avainsanat.slug.startsWith("/") ? avainsanat.slug : `/${avainsanat.slug}`,
+		};
+	})
+	.filter((page) => page.lang === currentLocale)
+	.sort(
+		(a, b) =>
+			b.data.lastUpdateDate.getTime() - a.data.lastUpdateDate.getTime(),
+	) as CollectionEntry<"avainsanat">[];
+---
+
+<div
+	class="text-sm font-medium auto-cols-fr grid-cols-1 md:grid-cols-2 grid-rows-[auto] grid gap-9 pb-40"
+>
+	{allAvainsanat.map((avainsanat) => <AvainsanatPreview {avainsanat} />)}
+</div>

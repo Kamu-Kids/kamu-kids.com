@@ -87,12 +87,12 @@ export default defineMarkdocConfig({
 			},
 			render: component("./src/components/sections/Services.astro"),
 		},
-		RecentWork: {
+		RecentAvainsanat: {
 			attributes: {
 				title: { type: String, render: "title", required: true },
 				buttons: { type: Array, render: "buttons", required: true },
 			},
-			render: component("./src/components/sections/RecentWork.astro"),
+			render: component("./src/components/sections/RecentAvainsanat.astro"),
 		},
 		Testimonial: {
 			attributes: {
@@ -116,9 +116,9 @@ export default defineMarkdocConfig({
 			},
 			render: component("./src/components/sections/About.astro"),
 		},
-		Works: {
+		Avainsanat: {
 			attributes: {},
-			render: component("./src/components/sections/Works.astro"),
+			render: component("./src/components/sections/Avainsanat.astro"),
 		},
 		News: {
 			attributes: {},

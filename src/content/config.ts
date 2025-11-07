@@ -33,7 +33,7 @@ const postsCollection = defineCollection({
 		}),
 });
 
-const worksCollection = defineCollection({
+const avainsanatCollection = defineCollection({
 	schema: ({ image }) =>
 		z.object({
 			title: z.string(),
@@ -64,5 +64,5 @@ export const collections = {
 	posts: postsCollection,
 	pages: pagesCollection,
 	services: servicesCollection,
-	works: worksCollection,
+	avainsanat: avainsanatCollection,
 };

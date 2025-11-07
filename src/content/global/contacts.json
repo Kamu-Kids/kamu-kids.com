@@ -1,12 +1,7 @@
 {
 	"phone": "+1 1234567890",
-	"mail": "info@yourcompany.com",
+	"mail": "info@kamu-kids.com",
 	"socials": [
-		{
-			"title": "Facebook",
-			"link": "https://facebook.com",
-			"icon": "ic:baseline-facebook"
-		},
 		{
 			"title": "Instagram",
 			"link": "https://www.instagram.com/",

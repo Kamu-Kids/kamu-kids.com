@@ -465,9 +465,9 @@ export default config({
 							icon: GeneralIcon({ ariaHidden: true }),
 							schema: {},
 						}),
-						RecentWork: block({
-							label: "RecentWork",
-							description: "RecentWork",
+						RecentAvainsanat: block({
+							label: "RecentAvainsanat",
+							description: "RecentAvainsanat",
 							icon: GeneralIcon({ ariaHidden: true }),
 							schema: {
 								title: fields.text({
@@ -581,9 +581,9 @@ export default config({
 								}),
 							},
 						}),
-						Works: block({
-							label: "Works",
-							description: "Works section",
+						Avainsanat: block({
+							label: "Avainsanat",
+							description: "Avainsanat section",
 							icon: GeneralIcon({ ariaHidden: true }),
 							schema: {},
 						}),
@@ -714,13 +714,13 @@ export default config({
 				}),
 			},
 		}),
-		works: collection({
-			label: "Works",
+		avainsanat: collection({
+			label: "Avainsanat",
 			slugField: "title",
-			path: "src/content/works/it/*",
+			path: "src/content/avainsanat/it/*",
 			entryLayout: "content",
 			columns: ["title", "lastUpdateDate"],
-			previewUrl: "/works/{slug}",
+			previewUrl: "/avainsanat/{slug}",
 			format: { contentField: "content" },
 			schema: {
 				title: fields.slug({
@@ -756,8 +756,8 @@ export default config({
 				}),
 				cover: fields.image({
 					label: "Cover Image",
-					directory: "src/assets/works",
-					publicPath: "@/assets/works/",
+					directory: "src/assets/avainsanat",
+					publicPath: "@/assets/avainsanat/",
 				}),
 				pubDate: fields.date({
 					label: "Publication Date",

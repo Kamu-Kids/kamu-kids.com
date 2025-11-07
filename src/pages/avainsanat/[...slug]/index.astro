@@ -8,7 +8,7 @@ export interface Props {
 }
 
 export async function getStaticPaths() {
-	return await getCollectionStaticPaths("avainsanat", "fi");
+	return await getCollectionStaticPaths("avainsanat", "en");
 }
 
 const { data: avainsanat } = Astro.props;

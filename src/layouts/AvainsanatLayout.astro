@@ -12,17 +12,17 @@ import { defaultLocale } from "site";
 import BaseLayout from "./BaseLayout.astro";
 
 type Props = {
-	frontmatter: CollectionEntry<"works">;
+	frontmatter: CollectionEntry<"avainsanat">;
 };
 
 const currentLocale = Astro.currentLocale;
 
-interface WorkLayoutLocale {
+interface AvainsanatLayoutLocale {
 	visitProject: string;
 }
 
 interface ComponentLocales {
-	[key: string]: WorkLayoutLocale;
+	[key: string]: AvainsanatLayoutLocale;
 }
 
 const componentLocales: ComponentLocales = {
