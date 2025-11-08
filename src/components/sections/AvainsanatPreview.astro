@@ -17,7 +17,7 @@ const { avainsanat } = Astro.props;
 const unlocalizedPath = unlocalizedUrl(avainsanat.slug);
 const localizedPath = translatePath(
 	currentLocale ?? defaultLocale,
-	`/avainsanat{unlocalizedPath}`,
+	`/avainsanat${unlocalizedPath}`,
 );
 
 const videoSrc = avainsanat.data?.video ? await loadVideo(avainsanat.data.video) : null;
@@ -73,9 +73,11 @@ const videoSrc = avainsanat.data?.video ? await loadVideo(avainsanat.data.video)
 					<div class="w-full h-0.5 mt-1"></div>
 				</div>
 			</a>
+			{/*
 			<p class="text-neutral-400 text-lg">
 				{Array.from(avainsanat.data.tags).join(", ")}
 			</p>
+			*/}
 		</div>
 	</div>
 </div>
