@@ -7,121 +7,130 @@ import { defaultLocale, locales } from "site";
 const currentLocale = Astro.currentLocale;
 
 function getTranslatedUrl(locale: string): string {
-    const unlocalizedPath = unlocalizedUrl(Astro.url.pathname);
-    return translatePath(locale, unlocalizedPath);
+	const unlocalizedPath = unlocalizedUrl(Astro.url.pathname);
+	return translatePath(locale, unlocalizedPath);
 }
 
 function isActiveLocale(locale: string): boolean {
-    return locale === currentLocale;
+	return locale === currentLocale;
 }
 
 const { header, contacts } = getLocalizedSettings(currentLocale);
+
 const logoPath = header.logo?.imagePath;
-const images = import.meta.glob("/src/assets/global/**/*.{webp,jpeg,jpg,png,gif,svg}") as Record<string, { default: ImageMetadata }>;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	"/src/assets/global/**/*.{webp,jpeg,jpg,png,gif,svg}",
+);
 ---
 
 <style>
-    // ... keep all existing menu-icon styles ...
-    .menu-icon {
-        position: relative;
-        width: 50px;
-        height: 50px;
-        cursor: pointer;
-    }
-    .menu-icon .menu-icon__checkbox {
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: relative;
-        cursor: pointer;
-        z-index: 2;
-        -webkit-touch-callout: none;
-        position: absolute;
-        opacity: 0;
-    }
-    .menu-icon div {
-        margin: auto;
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        bottom: 0;
-        width: 22px;
-        height: 12px;
-    }
-    .menu-icon span {
-        position: absolute;
-        display: block;
-        width: 100%;
-        height: 2px;
-        background-color: var(--bar-bg, #000);
-        border-radius: 5rem;
-        transition: all 0.2s cubic-bezier(0.1, 0.82, 0.76, 0.965);
-    }
-    .menu-icon span:first-of-type {
-        top: 0;
-    }
-    .menu-icon span:last-of-type {
-        bottom: 0;
-    }
-    .menu-icon.active span:first-of-type,
-    .menu-icon .menu-icon__checkbox:checked + div span:first-of-type {
-        transform: rotate(45deg);
-        top: 5px;
-    }
-    .menu-icon.active span:last-of-type,
-    .menu-icon .menu-icon__checkbox:checked + div span:last-of-type {
-        transform: rotate(-45deg);
-        bottom: 5px;
-    }
-    .menu-icon.active:hover span:first-of-type,
-    .menu-icon.active:hover span:last-of-type,
-    .menu-icon:hover .menu-icon__checkbox:checked + div span:first-of-type,
-    .menu-icon:hover .menu-icon__checkbox:checked + div span:last-of-type {
-        width: 22px;
-    }
-    @media (min-width: 1024px) {
-        .menu-icon:hover span:first-of-type {
-            width: 26px;
-        }
-        .menu-icon:hover span:last-of-type {
-            width: 12px;
-        }
-    }
-    #navigation {
-        pointer-events: none;
-    }
-    [data-nav-border-reveal] {
-        --tw-border-opacity: 0;
-    }
-    .active-locale {
-        font-weight: bolder;
-    }
+	.menu-icon {
+		position: relative;
+		width: 50px;
+		height: 50px;
+		cursor: pointer;
+	}
+	.menu-icon .menu-icon__checkbox {
+		display: block;
+		width: 100%;
+		height: 100%;
+		position: relative;
+		cursor: pointer;
+		z-index: 2;
+		-webkit-touch-callout: none;
+		position: absolute;
+		opacity: 0;
+	}
+	.menu-icon div {
+		margin: auto;
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		width: 22px;
+		height: 12px;
+	}
+	.menu-icon span {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 2px;
+		background-color: var(--bar-bg, #000);
+		border-radius: 5rem;
+		transition: all 0.2s cubic-bezier(0.1, 0.82, 0.76, 0.965);
+	}
+	.menu-icon span:first-of-type {
+		top: 0;
+	}
+	.menu-icon span:last-of-type {
+		bottom: 0;
+	}
+	.menu-icon.active span:first-of-type,
+	.menu-icon .menu-icon__checkbox:checked + div span:first-of-type {
+		transform: rotate(45deg);
+		top: 5px;
+	}
+	.menu-icon.active span:last-of-type,
+	.menu-icon .menu-icon__checkbox:checked + div span:last-of-type {
+		transform: rotate(-45deg);
+		bottom: 5px;
+	}
+	.menu-icon.active:hover span:first-of-type,
+	.menu-icon.active:hover span:last-of-type,
+	.menu-icon:hover .menu-icon__checkbox:checked + div span:first-of-type,
+	.menu-icon:hover .menu-icon__checkbox:checked + div span:last-of-type {
+		width: 22px;
+	}
+	@media (min-width: 1024px) {
+		.menu-icon:hover span:first-of-type {
+			width: 26px;
+		}
+		.menu-icon:hover span:last-of-type {
+			width: 12px;
+		}
+	}
+	#navigation {
+		pointer-events: none;
+	}
+	[data-nav-border-reveal] {
+		--tw-border-opacity: 0;
+	}
+	.active-locale {
+		font-weight: bolder;
+	}
 </style>
 
 <style is:global>
-    [data-nav-text-reveal] {
-        opacity: 0;
-    }
-    [data-nav-text-reveal] > div {
-        position: relative;
-        margin: 0;
-    }
-    .split-parent {
-        overflow: hidden;
-    }
-    .split-child {
-        display: inline-block;
-    }
+	[data-nav-text-reveal] {
+		opacity: 0;
+	}
+	[data-nav-text-reveal] > div {
+		position: relative;
+		margin: 0;
+	}
+	.split-parent {
+		overflow: hidden;
+	}
+	.split-child {
+		display: inline-block;
+	}
 </style>
 
 <header class="fixed w-full z-30">
-    <div class="items-center auto-cols-fr grid-cols-2 lg:grid-cols-2 grid-rows-[auto] justify-between left-0 py-3.5 px-6 lg:px-20 right-0 top-0 grid gap-4">
-        <div class="items-center flex-wrap justify-start relative flex text-blue-700 z-20">
-            <a href={translatePath(currentLocale ?? defaultLocale, "/")}
-               id="header-logo"
-               class="text-blue-700 justify-self-start lg:justify-self-center underline inline-block max-w-full">
-                <svg viewBox="0 0 1804 1867" width="60" height="60" class="w-12 h-12 lg:w-16 lg:h-16">
+	<div
+		class="items-center auto-cols-fr grid-cols-2 lg:grid-cols-2 grid-rows-[auto] justify-between left-0 py-3.5 px-6 lg:px-20 right-0 top-0 grid gap-4"
+	>
+		<div
+			class="items-center flex-wrap justify-start relative flex text-blue-700 z-20"
+		>
+			<a
+				href={translatePath(currentLocale ?? defaultLocale, "/")}
+				id="header-logo"
+				class="text-blue-700 justify-self-start lg:justify-self-center underline inline-block max-w-full"
+			>
+				<svg viewBox="0 0 1804 1867" width="60" height="60" class="w-12 h-12 lg:w-16 lg:h-16">
                     <!-- Speech Bubble (outer part - fades first) -->
                     <g id="MaskR" class="logo-path-mask">
                         <g transform="matrix(1,0,0,1,0.597705,-4.54747e-13)">
@@ -149,86 +158,123 @@ const images = import.meta.glob("/src/assets/global/**/*.{webp,jpeg,jpg,png,gif,
                         </g>
                     </g>
                 </svg>
-            </a>
-        </div>
-
-        <!-- Keep existing header content -->
-        <div class="col-start-2 hidden lg:flex justify-center items-center h-full">
-            <a data-company-name class="pb-4 group" href={translatePath(currentLocale ?? defaultLocale, "/")}>
-                <div class="w-20 h-1 bg-slate-200 rounded-full group-hover:bg-slate-600 transition-colors duration-500"></div>
-            </a>
-        </div>
-
-        <!-- Keep existing menu button -->
-        <div class="justify-self-end col-span-1 row-span-1 z-40 col-start-3">
-            <div class="items-center justify-center relative flex h-16 lg:w-24 lg:h-24">
-                <div class="menu-icon">
-                    <input id="menu-toggle" class="menu-icon__checkbox" type="checkbox"/>
-                    <div>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Keep existing navigation -->
-    <nav id="navigation" class="items-center bottom-0 text-sm font-medium justify-center left-0 fixed right-0 top-0 flex h-screen z-30">
-        <!-- Keep existing nav content -->
-        <div id="navigation-background" class="bg-white w-full h-full absolute top-0 left-0 opacity-0"></div>
-        <div class="items-center font-semibold flex-wrap justify-center flex flex-col overflow-hidden z-20 w-full">
-            <div class="flex flex-col items-start md:items-center pt-10">
-                {
-                    header.pages.map((page, index) => (
-                        <a data-nav-item
-                           href={translatePath(currentLocale ?? defaultLocale, page.link)}
-                           class="items-center justify-start flex overflow-hidden gap-4 relative pr-10">
-                            <div data-nav-border-reveal
-                                 data-nav-text-reveal
-                                 class="text-black items-center cursor-pointer justify-center pt-1 flex w-9 h-9 border-2 border-black border-solid rounded-full">
-                                0{index + 1}
-                            </div>
-                            <div data-nav-text-reveal
-                                 class="cursor-pointer overflow-hidden text-4xl xs:text-5xl md:text-[5.63rem] !leading-[1.15] text-black">
-                                {page.title}
-                            </div>
-                        </a>
-                    ))
-                }
-                <div class="flex gap-8 pt-10 pl-16 md:pl-0">
-                    {
-                        locales.map((locale) => (
-                            <a href={getTranslatedUrl(locale)}
-                               class:list={[
-                                   "items-center justify-start flex overflow-hidden gap-4 relative cursor-pointer",
-                                   isActiveLocale(locale) && "active-locale",
-                               ]}>
-                                <span data-nav-text-reveal
-                                      class="overflow-hidden text-md xs:text-lg md:text-xl !leading-[1.15] text-black">
-                                    <span>{locale}</span>
-                                </span>
-                            </a>
-                        ))
-                    }
-                </div>
-            </div>
-        </div>
-    </nav>
+			</a>
+		</div>
+		<div
+			class="col-start-2 hidden lg:flex justify-center items-center h-full"
+		>
+			<a
+				data-company-name
+				class="pb-4 group"
+				href={translatePath(currentLocale ?? defaultLocale, "/")}
+			>
+				<div
+					class="w-20 h-1 bg-slate-200 rounded-full group-hover:bg-slate-600 transition-colors duration-500"
+				>
+				</div>
+			</a>
+		</div>
+		<div class="justify-self-end col-span-1 row-span-1 z-40 col-start-3">
+			<div
+				class="items-center justify-center relative flex h-16 lg:w-24 lg:h-24"
+			>
+				<div class="menu-icon">
+					<input
+						id="menu-toggle"
+						class="menu-icon__checkbox"
+						type="checkbox"
+					/>
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<nav
+		id="navigation"
+		class="items-center bottom-0 text-sm font-medium justify-center left-0 fixed right-0 top-0 flex h-screen z-30"
+	>
+		<div
+			id="navigation-background"
+			class="bg-white w-full h-full absolute top-0 left-0 opacity-0"
+		>
+		</div>
+		<div
+			class="items-center font-semibold flex-wrap justify-center flex flex-col overflow-hidden z-20 w-full"
+		>
+			<div class="flex flex-col items-start md:items-center pt-10">
+				{
+					header.pages.map((page, index) => (
+						<a
+							data-nav-item
+							href={translatePath(
+								currentLocale ?? defaultLocale,
+								page.link,
+							)}
+							class="items-center justify-start flex overflow-hidden gap-4 relative pr-10"
+						>
+							<div
+								data-nav-border-reveal
+								data-nav-text-reveal
+								class="text-black items-center cursor-pointer justify-center pt-1 flex w-9 h-9 border-2 border-black border-solid rounded-full"
+							>
+								0{index + 1}
+							</div>
+							<div
+								data-nav-text-reveal
+								class="cursor-pointer overflow-hidden text-4xl xs:text-5xl md:text-[5.63rem] !leading-[1.15] text-black"
+							>
+								{page.title}
+							</div>
+						</a>
+					))
+				}
+				<div class="flex gap-8 pt-10 pl-16 md:pl-0">
+					{
+						locales.map((locale) => (
+							<a
+								href={getTranslatedUrl(locale)}
+								class:list={[
+									"items-center justify-start flex overflow-hidden gap-4 relative cursor-pointer",
+									isActiveLocale(locale) && "active-locale",
+								]}
+							>
+								<span
+									data-nav-text-reveal
+									class="overflow-hidden text-md xs:text-lg md:text-xl !leading-[1.15] text-black"
+								>
+									<span>{locale}</span>
+								</span>
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</nav>
 </header>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-    import { BlurPlugin } from "@/utils/gsap-blur";
-    import { LifecycleManager } from "@/utils/lifecycle-manager";
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	// Uncomment if you have premium version of gsap
+	// import { SplitText } from "gsap/SplitText";
+	// import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+	import { BlurPlugin } from "@/utils/gsap-blur";
+	import { LifecycleManager } from "@/utils/lifecycle-manager";
 
-    gsap.registerPlugin(ScrollTrigger, BlurPlugin);
+	gsap.registerPlugin(
+		ScrollTrigger,
+		/*SplitText, DrawSVGPlugin,*/
+		BlurPlugin,
+	);
 
-    const lm = new LifecycleManager();
+	const lm = new LifecycleManager();
 
-    lm.onElementLoaded("navigation", (ctx) => {
-        ctx?.add(() => {
+	lm.onElementLoaded("navigation", (ctx) => {
+		ctx?.add(() => {
             // Logo fade animation with staggered timing
             gsap.timeline({
                 defaults: {
@@ -247,43 +293,76 @@ const images = import.meta.glob("/src/assets/global/**/*.{webp,jpeg,jpg,png,gif,
 
             .set("#header-logo", { pointerEvents: "none" });
 
-            // Navigation menu animation
-            const tl = gsap.timeline({
-                paused: true,
-                defaults: {
-                    duration: 1,
-                    ease: "power3.out",
-                },
-            });
+			const tl = gsap.timeline({
+				paused: true,
+				defaults: {
+					duration: 1,
+					ease: "power3.out",
+				},
+			});
 
-            tl.set("#navigation", { pointerEvents: "auto" })
-              .to("#navigation-background", { opacity: 1 }, "<")
-              .to("[data-nav-text-reveal]", { opacity: 1, duration: 0.5, ease: "none" }, "<=0.5");
+			// const childSplit = new SplitText("[data-nav-text-reveal]", {
+			// 	type: "lines",
+			// 	linesClass: "split-child",
+			// });
+			// const parentSplit = new SplitText("[data-nav-text-reveal]", {
+			// 	// type: "lines",
+			// 	linesClass: "split-parent",
+			// });
 
-            // Menu item hover effects
-            const menuItems = gsap.utils.toArray("[data-nav-item]") as HTMLElement[];
+			tl.set("#navigation", { pointerEvents: "auto" })
+				.to("#navigation-background", { opacity: 1 }, "<")
+				.to(
+					"[data-nav-text-reveal]",
+					{ opacity: 1, duration: 0.5, ease: "none" },
+					"<=0.5",
+				);
+			// .from(
+			// 	childSplit.lines,
+			// 	{
+			// 		duration: 1,
+			// 		yPercent: 300,
+			// 		skewY: 7,
+			// 		stagger: 0.02,
+			// 	},
+			// 	"<",
+			// );
 
-            menuItems.forEach((menuItem) => {
-                const menuItemTl = gsap.timeline({
-                    defaults: { duration: 0.4, ease: "none" },
-                    paused: true,
-                })
-                .to(menuItem, { blur: 2 })
-                .to(menuItem, { blur: 1 });
+			const menuItems = gsap.utils.toArray(
+				"[data-nav-item]",
+			) as HTMLElement[];
 
-                menuItem.addEventListener("mouseenter", () => menuItemTl.play());
-                menuItem.addEventListener("mouseleave", () => menuItemTl.pause(0));
-            });
+			menuItems.forEach((menuItem) => {
+				const menuItemTl = gsap
+					.timeline({
+						defaults: { duration: 0.4, ease: "none" },
+						paused: true,
+					})
+					.to(menuItem, {
+						blur: 2,
+					})
+					.to(menuItem, {
+						blur: 1,
+					});
+				menuItem.addEventListener("mouseenter", (e) =>
+					menuItemTl.play(),
+				);
+				menuItem.addEventListener("mouseleave", (e) =>
+					menuItemTl.pause(0),
+				);
+			});
 
-            // Menu toggle handler
-            const menuToggle = document.getElementById("menu-toggle");
-            menuToggle?.addEventListener("change", function() {
-                if ((this as HTMLInputElement).checked) {
-                    tl.play();
-                } else {
-                    tl.reverse();
-                }
-            });
-        });
-    });
+			// Get the checkbox
+			const menuToggle = document.getElementById("menu-toggle");
+
+			// Add an event listener to the checkbox
+			menuToggle?.addEventListener("change", function () {
+				if ((this as HTMLInputElement).checked) {
+					tl.play();
+				} else {
+					tl.reverse();
+				}
+			});
+		});
+	});
 </script>
